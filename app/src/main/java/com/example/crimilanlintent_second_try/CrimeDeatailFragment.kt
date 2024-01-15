@@ -7,10 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crimilanlintent_second_try.databinding.FragmentCrimeDeatailBinding
+import java.util.Date
+import java.util.UUID
 
 class CrimeDeatailFragment : Fragment() {
 private lateinit var binding: FragmentCrimeDeatailBinding
+private lateinit var crimeAdapter: CrimeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +27,25 @@ private lateinit var binding: FragmentCrimeDeatailBinding
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("FragmentDebug", "onCreateView"  )
             binding = FragmentCrimeDeatailBinding.inflate(inflater, container, false)
             return binding.root
     }
+
+
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+
+            val crimes = listOf(
+                Crime(1, "Dirty Dishes",Date().toString()),
+                Crime(2, "Floor is not Clean",Date().toString()),
+                Crime(3, "Dirty Toilet",Date().toString()),
+            )
+       crimeAdapter=CrimeAdapter(crimes)
+       binding.crimeRecyclerView.apply{
+           layoutManager= LinearLayoutManager(context)
+           adapter=crimeAdapter
+       }
+
+        }
 
 }
